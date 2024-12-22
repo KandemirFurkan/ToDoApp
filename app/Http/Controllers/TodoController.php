@@ -30,11 +30,14 @@ class TodoController extends Controller
     public function store(Request $request)
     {
 
-        ToDo::create([
+     $is_created=   ToDo::create([
     'title' => $request->title,
     'description' => $request->description,
  ]);
-return redirect()->route('index');
+ if($is_created){
+    return redirect()->route('index')->with('success', 'Todo Başarıyla Oluşturuldu!');
+ }
+return redirect()->route('index')->with('error', 'Todo Oluşturulamadı!');
 
     }
 
@@ -61,12 +64,18 @@ return redirect()->route('index');
     public function update(Request $request, string $id)
     {
       $todo=ToDo::find($id);
-      $todo->update([
+  $is_success = $todo->update([
         'title' => $request->title,
         'description' => $request->description,
         'completed' => $request->completed,
      ]);
-     return redirect()->route('index');
+     if($is_success) {
+        return redirect()->route('index')->with('success', 'Todo Başarıyla Güncellendi');
+     }
+
+        return redirect()->route('index')->with('error', 'Bir Hata Oluştu!');
+
+
     }
 
     /**
@@ -75,7 +84,13 @@ return redirect()->route('index');
     public function destroy(string $id)
     {
        $todo=ToDo::find($id);
-       $todo->delete();
-       return redirect()->route('index');
+   $is_deleted=   $todo->delete();
+
+   if($is_deleted){
+        return redirect()->route('index')->with('success', 'Todo Başarıyla Silindi!');
+       }
+       return redirect()->route('index')->with('error', 'Todo Silinemedi!');
+
+
     }
 }

@@ -14,11 +14,16 @@
                     <div class="mb-3">
                         <label  class="form-label">ToDo Başlık</label>
                         <input type="text" class="form-control"  name="title" placeholder="Başlık Giriniz">
+                        @error('title')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label  class="form-label">ToDo Açıklama</label>
                         <textarea class="form-control" name="description" placeholder="Açıklama Giriniz"></textarea>
-
+                        @error('description')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 
 
 

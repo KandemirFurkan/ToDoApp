@@ -29,6 +29,16 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|min:5',
+            'description' => 'required|min:10',
+        ],
+    [
+            'title.required' => 'Lütfen Başlık Giriniz!',
+            'title.min' => 'Başlık 5 Karakterden Az Olamaz!',
+            'description.required' => 'Lütfen Açıklama Giriniz!',
+            'description.min' => 'Açıklama 10 Karakterden Az Olamaz!',
+        ]);
 
      $is_created=   ToDo::create([
     'title' => $request->title,
@@ -63,6 +73,17 @@ return redirect()->route('index')->with('error', 'Todo Oluşturulamadı!');
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'title' => 'required|min:5',
+            'description' => 'required|min:10',
+        ],
+    [
+            'title.required' => 'Lütfen Başlık Giriniz!',
+            'title.min' => 'Başlık 5 Karakterden Az Olamaz!',
+            'description.required' => 'Lütfen Açıklama Giriniz!',
+            'description.min' => 'Açıklama 10 Karakterden Az Olamaz!',
+        ]);
+
       $todo=ToDo::find($id);
   $is_success = $todo->update([
         'title' => $request->title,
